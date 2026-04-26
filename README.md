@@ -394,7 +394,7 @@ This project aligns with course topics including:
 # 👨‍💻 Author
 
 Harjot Singh
-B.Tech Computer Science Engineering
+B.Tech Artificial Intelligence Machine Learning
 Thapar Institute of Engineering and Technology
 
 ---
