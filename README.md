@@ -1,59 +1,60 @@
 # 🚦 Traffic Challan Data Engineering Pipeline (India 2015–2026)
 
-An end-to-end **Data Engineering project** that processes **416M+ Indian traffic e-challan records** to build a scalable ETL pipeline, perform analytics, and visualize enforcement trends using an interactive dashboard.
+An **end-to-end Data Engineering pipeline** that processes **416M+ Indian traffic e-challan records** to generate analytical insights and visualize enforcement trends using an interactive dashboard.
 
-This project demonstrates the **core concepts of modern data engineering**, including data ingestion, transformation, validation, orchestration, data modeling, analytics, and containerized deployment.
+This project demonstrates core **modern data engineering concepts** including:
+
+* ETL pipeline design
+* Data cleaning and preprocessing
+* Data transformation and aggregation
+* Data quality validation
+* Exploratory data analysis
+* Interactive analytics dashboards
+* Containerized deployment using Docker
+* Conceptual workflow orchestration using Apache Airflow
 
 ---
 
-# 📊 Project Overview
+# 📊 Dashboard Preview
 
-Traffic enforcement generates massive datasets that contain valuable insights about road safety, policy enforcement, and administrative efficiency.
+*(Add a screenshot of your dashboard inside the `assets` folder)*
 
-This project builds a **complete data pipeline** to process historical e-challan data and generate analytical insights.
+```
+assets/dashboard.png
+```
 
-The pipeline:
+Example:
 
-1. Ingests raw enforcement data
-2. Cleans and validates records
-3. Generates KPI aggregations
-4. Stores processed datasets
-5. Visualizes insights through a dashboard
-6. Demonstrates orchestration using Airflow DAGs
-7. Deploys the dashboard using Docker containers
+![Dashboard](assets/dashboard.png)
 
 ---
 
 # 📦 Dataset
 
-Dataset Source:
-
-Indian Traffic E-Challan Dataset (2015-2026)
+Dataset: **Indian Traffic E-Challan Dataset (2015–2026)**
 
 Total Records Processed:
 
-**416,513,606 challans**
+**416,513,606 Challans**
 
 Dataset Fields:
 
-| Column          | Description                   |
-| --------------- | ----------------------------- |
-| date            | Daily enforcement record date |
-| totalchallan    | Total challans issued         |
-| disposedchallan | Challans resolved             |
-| pendingchallan  | Challans pending              |
-| pendingamount   | Total pending fine amount     |
-| disposedamount  | Amount recovered              |
-| totalamount     | Total fine amount             |
-| pendingcourt    | Cases pending in court        |
-| disposedcourt   | Cases resolved in court       |
-| totalcourt      | Total court cases             |
+| Column          | Description           |
+| --------------- | --------------------- |
+| date            | Date of record        |
+| totalchallan    | Total challans issued |
+| disposedchallan | Resolved challans     |
+| pendingchallan  | Pending challans      |
+| pendingamount   | Pending fine amount   |
+| disposedamount  | Amount recovered      |
+| totalamount     | Total fine amount     |
+| pendingcourt    | Pending court cases   |
+| disposedcourt   | Resolved court cases  |
+| totalcourt      | Total court cases     |
 
 ---
 
 # 🏗 System Architecture
-
-The project follows a simplified **Modern Data Engineering Architecture**.
 
 ```
 Raw Dataset (CSV)
@@ -63,31 +64,31 @@ Data Ingestion
 (Python Scripts)
         │
         ▼
-Data Cleaning & Validation
+Data Cleaning
         │
         ▼
 Data Transformation
-(KPI Aggregations)
+(KPI Aggregation)
         │
         ▼
-Parquet Data Lake
+Data Quality Validation
         │
         ▼
-Analytics Layer
-(Streamlit Dashboard)
+Parquet Data Storage
+        │
+        ▼
+Streamlit Dashboard
         │
         ▼
 Docker Deployment
 ```
 
-Optional orchestration is demonstrated through **Apache Airflow DAGs**.
-
 ---
 
-# ⚙️ Project Structure
+# 📂 Project Structure
 
 ```
-TRAFFIC_DATA_PIPELINE
+traffic-challan-data-pipeline
 │
 ├── dags
 │   └── traffic_pipeline_dag.py
@@ -95,22 +96,21 @@ TRAFFIC_DATA_PIPELINE
 ├── dashboard
 │   └── app.py
 │
-├── data
-│   ├── raw
-│   └── processed
-│
-├── logs
-│
-├── notebooks
-│   └── eda.ipynb
-│
-├── pipelines
-│
 ├── scripts
 │   ├── data_ingestion.py
 │   ├── data_cleaning.py
 │   ├── data_transform.py
 │   └── data_quality.py
+│
+├── notebooks
+│   └── eda.ipynb
+│
+├── data
+│   ├── raw
+│   └── processed
+│
+├── assets
+│   └── dashboard.png
 │
 ├── Dockerfile
 ├── requirements.txt
@@ -119,175 +119,158 @@ TRAFFIC_DATA_PIPELINE
 
 ---
 
-# 🔄 ETL Pipeline
+# ⚙️ Prerequisites
 
-The project implements a standard **ETL workflow**.
+Install the following:
 
-### Extract
-
-Raw challan data is ingested from the dataset source.
-
-Script:
-
-```
-scripts/data_ingestion.py
-```
-
-Responsibilities:
-
-* Load raw dataset
-* Convert file formats
-* Store raw records
+* Python **3.10+**
+* pip
+* Git
+* Docker *(optional)*
 
 ---
 
-### Transform
-
-Data is cleaned and standardized.
-
-Script:
+# 📥 Clone the Repository
 
 ```
-scripts/data_cleaning.py
+git clone https://github.com/<your-username>/traffic-challan-data-pipeline.git
+cd traffic-challan-data-pipeline
 ```
-
-Operations performed:
-
-* Handling missing values
-* Standardizing column names
-* Removing duplicates
-* Converting date formats
 
 ---
 
-### Data Quality Validation
+# 📊 Dataset Setup
 
-Script:
+Download dataset from:
+
+https://www.kaggle.com/datasets/bhanageviraj/indian-traffic-e-challan-daily-dataset-20152026
+
+Place the dataset file inside:
 
 ```
-scripts/data_quality.py
+data/raw/
 ```
 
-Validation checks:
+Example:
 
-* Null value checks
-* Schema validation
-* Data integrity checks
+```
+data
+ ├── raw
+ │   └── challan_dataset.csv
+ └── processed
+```
 
 ---
 
-### Aggregation & KPI Generation
+# 🖥 Installation
 
-Script:
+Create virtual environment
 
 ```
-scripts/data_transform.py
+python -m venv venv
 ```
 
-Key KPIs generated:
+Activate environment
+
+### Windows
+
+```
+venv\Scripts\activate
+```
+
+### Mac/Linux
+
+```
+source venv/bin/activate
+```
+
+Install dependencies
+
+```
+pip install -r requirements.txt
+```
+
+---
+
+# 🔄 Run the ETL Pipeline
+
+### Step 1 – Data Ingestion
+
+```
+python scripts/data_ingestion.py
+```
+
+---
+
+### Step 2 – Data Cleaning
+
+```
+python scripts/data_cleaning.py
+```
+
+---
+
+### Step 3 – Data Transformation
+
+```
+python scripts/data_transform.py
+```
+
+This generates:
+
+```
+data/processed/clean_data.parquet
+data/processed/yearly_kpi.csv
+data/processed/monthly_kpi.csv
+```
+
+---
+
+### Step 4 – Data Quality Validation
+
+```
+python scripts/data_quality.py
+```
+
+---
+
+# 📊 Run the Dashboard
+
+```
+streamlit run dashboard/app.py
+```
+
+Open browser:
+
+```
+http://localhost:8501
+```
+
+Dashboard shows:
 
 * Total challans issued
-* Total fines collected
+* Revenue collected
 * Pending vs disposed challans
 * Yearly enforcement trends
-* Monthly enforcement patterns
-
-Output files:
-
-```
-yearly_kpi.csv
-monthly_kpi.csv
-clean_data.parquet
-```
-
----
-
-# 📈 Exploratory Data Analysis
-
-EDA was conducted using Jupyter notebooks.
-
-Location:
-
-```
-notebooks/eda.ipynb
-```
-
-Analysis includes:
-
-* Dataset inspection
-* Yearly challan trends
 * Monthly challan distribution
-* Pending vs resolved challans
-* Data visualization
 
 ---
 
-# 📊 Dashboard
+# 🐳 Run Using Docker
 
-An interactive dashboard built using **Streamlit** provides insights into enforcement patterns.
-
-Location:
-
-```
-dashboard/app.py
-```
-
-Features:
-
-* KPI summary cards
-* Yearly challan trends
-* Monthly challan distribution
-* Pending vs resolved statistics
-
-Dashboard preview:
-
-Key insights include:
-
-* Rapid growth in challan issuance after 2019
-* Peak enforcement in 2025
-* Significant backlog of unresolved challans
-
----
-
-# 🔁 Workflow Orchestration
-
-The pipeline includes an example **Apache Airflow DAG** to demonstrate orchestration of ETL tasks.
-
-Location:
-
-```
-dags/traffic_pipeline_dag.py
-```
-
-Workflow tasks:
-
-1. Data ingestion
-2. Data cleaning
-3. Data transformation
-4. Data validation
-
-Even though Airflow is not executed on Windows environments, the DAG demonstrates how the pipeline would run in a production system.
-
----
-
-# 🐳 Docker Deployment
-
-The dashboard is containerized using Docker.
-
-Dockerfile defines:
-
-* Python runtime
-* Dependency installation
-* Dashboard launch
-
-Run the container:
+Build Docker image:
 
 ```
 docker build -t traffic-pipeline .
+```
+
+Run container:
+
+```
 docker run -p 8501:8501 traffic-pipeline
 ```
 
-Access dashboard:
+Open:
 
 ```
 http://localhost:8501
@@ -295,99 +278,75 @@ http://localhost:8501
 
 ---
 
-# 📊 Key Findings
+# 📊 Exploratory Data Analysis
 
-Analysis of the dataset reveals several trends:
+EDA notebook:
 
-### Growth in Enforcement
+```
+notebooks/eda.ipynb
+```
 
-Traffic challans increased significantly after 2019 due to digital enforcement systems and stricter traffic policies.
+Includes:
 
-### High Pending Cases
-
-A large proportion of challans remain unresolved, indicating administrative backlog.
-
-### Seasonal Patterns
-
-Monthly analysis suggests variation in enforcement intensity across the year.
+* Dataset inspection
+* Trend visualization
+* Monthly distribution analysis
+* Pending vs disposed analysis
 
 ---
 
-# 🧠 Data Modeling
+# 🔁 Workflow Orchestration
 
-Conceptual star schema for analytics:
+An example **Apache Airflow DAG** demonstrates pipeline orchestration.
+
+Location:
 
 ```
-Fact Table
-Traffic_Challan_Facts
-    totalchallan
-    disposedchallan
-    pendingchallan
-    totalamount
-    date_key
-
-Dimension Tables
-Date_Dimension
-State_Dimension
-Violation_Dimension
+dags/traffic_pipeline_dag.py
 ```
 
-This structure allows efficient OLAP-style analysis.
+Pipeline tasks:
+
+1. Data ingestion
+2. Data cleaning
+3. Data transformation
+4. Data validation
+
+---
+
+# 📈 Key Insights
+
+Analysis shows:
+
+* Significant increase in traffic challans after **2019**
+* Peak enforcement activity in **2025**
+* Large backlog of unresolved challans
+* Seasonal patterns in monthly enforcement
 
 ---
 
 # 🧰 Technologies Used
 
-| Technology       | Purpose                             |
-| ---------------- | ----------------------------------- |
-| Python           | Data pipeline implementation        |
-| Pandas           | Data processing                     |
-| Parquet          | Efficient columnar storage          |
-| Streamlit        | Analytics dashboard                 |
-| Docker           | Containerized deployment            |
-| Jupyter Notebook | Exploratory data analysis           |
-| Apache Airflow   | Workflow orchestration (conceptual) |
-
----
-
-# 🎯 Learning Outcomes
-
-This project demonstrates the following **data engineering concepts**:
-
-* ETL pipeline design
-* Data transformation workflows
-* Data quality validation
-* Batch data processing
-* Data modeling concepts
-* Analytics dashboards
-* Containerized deployment
-* Workflow orchestration
+| Technology       | Purpose                   |
+| ---------------- | ------------------------- |
+| Python           | Data pipeline development |
+| Pandas           | Data processing           |
+| Parquet          | Efficient data storage    |
+| Streamlit        | Dashboard                 |
+| Docker           | Containerized deployment  |
+| Jupyter Notebook | EDA                       |
+| Apache Airflow   | Workflow orchestration    |
 
 ---
 
 # 🚀 Future Improvements
 
-Possible extensions include:
+Possible extensions:
 
 * Real-time streaming using Apache Kafka
-* Distributed processing with Apache Spark
+* Distributed processing using Apache Spark
 * Data warehouse integration (PostgreSQL / BigQuery)
 * Cloud deployment using AWS or GCP
-* Automated monitoring and alerting
-
----
-
-# 📚 Academic Relevance
-
-This project aligns with course topics including:
-
-* Data engineering foundations
-* Data modeling
-* ETL pipeline design
-* Workflow orchestration
-* Big data concepts
-* Data governance
-* DevOps practices for data platforms
 
 ---
 
